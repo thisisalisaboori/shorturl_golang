@@ -18,24 +18,24 @@ type LinkContext struct{
 	LDB  *leveldb.DB
 }
 
-func (self *LinkContext) Init() error{
+func (T *LinkContext) Init() error{
 	var err error
-	self.LDB, err = leveldb.OpenFile("/tmp/links", nil)
+	T.LDB, err = leveldb.OpenFile("/tmp/links", nil)
     return err
 }
 
 
 
-func (self *LinkContext) Set(link Link ) bool{
-	fmt.Println(self.LDB)
-	err:= self.LDB.Put([]byte(link.ShortLink) , []byte(link.Link),nil  )
-	defer self.LDB.Close()
+func (T *LinkContext) Set(link Link ) bool{
+	fmt.Println(T.LDB)
+	err:= T.LDB.Put([]byte(link.ShortLink) , []byte(link.Link),nil  )
+	defer T.LDB.Close()
 	return err == nil
 }
 
-func (self *LinkContext) Get(link string ) string{
-	data,_:= self.LDB.Get([]byte(link)  ,nil )
-	defer self.LDB.Close()
+func (T *LinkContext) Get(link string ) string{
+	data,_:= T.LDB.Get([]byte(link)  ,nil )
+	defer T.LDB.Close()
 
  	return string(data)
 }
