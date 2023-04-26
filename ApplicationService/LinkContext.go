@@ -15,9 +15,8 @@ type Link struct{
 }
 
 type LinkContext struct{
-	 LDB  *leveldb.DB
+	LDB  *leveldb.DB
 }
-
 
 func (self *LinkContext) Init() error{
 	var err error

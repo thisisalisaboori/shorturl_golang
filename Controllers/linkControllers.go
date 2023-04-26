@@ -9,17 +9,19 @@ import (
 )
 
 func GetLink(c echo.Context) error {
-	obj := applicationservice.Link{}
-	obj.ShortLink = c.Param("link")
-	obj.GetLink()
+	da := applicationservice.LinkApplicationService{}
+	shortLink := c.Param("link")
+	link := da.GetLink(shortLink)
+	obj := applicationservice.LinkDto{Link: link, ShortLink: shortLink}
 	return c.JSON(200, obj)
 }
 
 func SetLink(c echo.Context) error {
-	var obj applicationservice.Link
-	_ = json.NewDecoder(c.Request().Body).Decode(&obj)
+	da := applicationservice.LinkApplicationService{}
+	var newobj applicationservice.CreateLink
+	_ = json.NewDecoder(c.Request().Body).Decode(&newobj)
 	//fmt.Println(obj)
-	obj.SetLink()
-
+	res := da.SetLink(newobj)
+	obj := applicationservice.LinkDto{Link: res.Link, ShortLink: res.ShortLink}
 	return c.JSON(200, obj)
 }
