@@ -24,7 +24,7 @@ func makeHash() string {
 }
 
 func (T *LinkApplicationService) SetLink(newLink CreateLink) LinkDto {
-	T.cn.Init()
+
 	shortLink := makeHash()
 	for {
 		check := T.cn.Get(shortLink)
@@ -41,6 +41,5 @@ func (T *LinkApplicationService) SetLink(newLink CreateLink) LinkDto {
 
 func (T *LinkApplicationService) GetLink(shortLink string) string {
 
-	T.cn.Init()
 	return T.cn.Get(shortLink)
 }

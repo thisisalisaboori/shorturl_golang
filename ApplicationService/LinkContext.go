@@ -1,7 +1,7 @@
 package applicationservice
 
 import (
-	"fmt"
+	//"fmt"
 	"github.com/syndtr/goleveldb/leveldb"
 )
 type IContext interface{
@@ -27,13 +27,15 @@ func (T *LinkContext) Init() error{
 
 
 func (T *LinkContext) Set(link Link ) bool{
-	fmt.Println(T.LDB)
+	T.Init()
+	//fmt.Println(T.LDB)
 	err:= T.LDB.Put([]byte(link.ShortLink) , []byte(link.Link),nil  )
 	defer T.LDB.Close()
 	return err == nil
 }
 
 func (T *LinkContext) Get(link string ) string{
+	T.Init()
 	data,_:= T.LDB.Get([]byte(link)  ,nil )
 	defer T.LDB.Close()
 
